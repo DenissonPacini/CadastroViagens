@@ -1,0 +1,110 @@
+﻿@model List<Motorista>
+
+<form class="form-inline">
+    <label class="sr-only" for="inlineFormInputName2">Nome</label>
+    <input type="text" name="Nome" class="form-control mb-2 mr-sm-2" id="Nome" placeholder="Nome">
+    <div class="form-check mb-2 mr-sm-2">
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Buscar</button>
+</form>
+@{ int countForm = 0;
+    string formulario;
+    }
+@foreach (var item in Model)
+{
+    {
+        countForm = countForm + 1;
+        formulario = "form" + countForm;
+    }
+
+<form id="@formulario">
+    <div class="form-group">
+        <table class="table table-bordered">
+            <tr>
+                <th colspan="7" bgcolor="GREY" style="color:#fff"><center><b>Nome Motorista</b></center></th>
+            </tr>
+            <tr>
+                <td colspan="3"><center><b>Nome</b></center></td>
+                <td colspan="4"><center><b>Ultimo Nome</b></center></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <input type="hidden" name="Id" id="Id" value="@item.Id" />
+                    <input type="text" class="form-control" name="Nome_" id="Nome_" value="@item.Nome" aria-describedby="" placeholder="Nome">
+                </td>
+                <td colspan="4">
+                    <input type="text" class="form-control" name="UltimoNome" id="UltimoNome" value="@item.UltimoNome" aria-describedby="" placeholder="Ultimo Nome">
+                </td>
+            </tr>
+            <tr>
+                <th colspan="7" bgcolor="GREY" style="color:#fff"><center><b>Endere&ccedilo</b></center></th>
+            </tr>
+            <tr>
+                <td><center><b>Rua</b></center></td>
+                <td><center><b>Número</b></center></td>
+                <td><center><b>Complemento</b></center></td>
+                <td><center><b>CEP</b></center></td>
+                <td><center><b>Bairro</b></center></td>
+                <td><center><b>Municipio</b></center></td>
+                <td><center><b>UF</b></center></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="Logradouro" class="form-control" id="Logradouro" value="@item.Logradouro" aria-describedby="Nome placeholder="Logradouro">
+                </td>
+                <td>
+                    <input type="text" name="Numero" class="form-control" id="Numero" value="@item.Numero" aria-describedby="Nome" placeholder="Numero">
+                </td>
+                <td>
+                    <input type="text" name="Complemento" class="form-control" id="Complemento" value="@item.Complemento" aria-describedby="Nome" placeholder="Complemento">
+                </td>
+                <td>
+                    <input type="text" name="CEP" class="form-control" id="CEP" value="@item.CEP" aria-describedby="Nome" placeholder="CEP">
+                </td>
+                <td>
+                    <input type="text" name="Bairro" class="form-control" id="Bairro" value="@item.Bairro" aria-describedby="Nome" placeholder="Bairro">
+                </td>
+                <td>
+                    <input type="text" name="Localidade" class="form-control" id="Localidade" value="@item.Localidade" aria-describedby="Nome" placeholder="Localidade">
+                </td>
+                <td>
+                    <input type="text" name="UF" class="form-control" id="UF" value="@item.UF" aria-describedby="Nome" placeholder="UF">
+                </td>
+            </tr>
+
+            <tr>
+                <th colspan="7" bgcolor="GREY" style="color:#fff"><center><b>Caminhão</b></center></th>
+            </tr>
+            <tr>
+                <td colspan="3"><b>Marca</b></td>
+                <td colspan="2"><b>Modelo</b></td>
+                <td><b>Placa</b></td>
+                <td><b>Quantidade de Eixo</b></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <input type="text" name="Marca" class="form-control" id="Marca" value="@item.Caminhao.Marca" aria-describedby="Nome" placeholder="Marca">
+                </td>
+                <td colspan="2">
+                    <input type="text" name="Modelo" class="form-control" id="Modelo" value="@item.Caminhao.Modelo" aria-describedby="Nome" placeholder="Modelo">
+                </td>
+                <td>
+                    <input type="text" name="Placa" class="form-control" id="Placa" value="@item.Caminhao.Placa" aria-describedby="Nome" placeholder="Placa">
+                </td>
+                <td>
+                    <input type="text" name="Eixos" class="form-control" id="Eixos" value="@item.Caminhao.Eixos" aria-describedby="Nome" placeholder="Eixos">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <input type="submit" value="Alterar" onclick="AlteraMotorista('@formulario')" />
+    <input type="submit" value="Excluir" onclick="ExcluirMotorista('@formulario')" />
+</form>
+}
+
+<script>
+
+</script>
+
+
+

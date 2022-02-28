@@ -1,0 +1,156 @@
+﻿@model CadastroViagens.Models.Motorista
+
+<div class="MensagemErro" style="color:red;">
+    *Por favor corrija os campos marcados em vermelho.<br /><br />
+</div>
+<form class="needs-validation" id="cadastrarMotorista" method="post" asp-action="CadastrarMotorista" novalidate>
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom01">Primeiro Nome</label>
+            <input type="text" asp-for="Nome" class="form-control" id="validationCustom01" maxlength="100" name="Nome" placeholder="Nome" required>
+            <div class="invalid-feedback">
+                *Digite o primeiro nome.
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom02">Ultimo Nome</label>
+            <input type="text" asp-for="UltimoNome" class="form-control" id="validationCustom02" maxlength="100" name="UltimoNome" placeholder="UltimoNome" required>
+            <div class="invalid-feedback">
+                *Digite o Ultimo Nome.
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label for="validationCustom02">CEP</label>
+            <input type="text" asp-for="CEP" class="form-control" id="validationCustom02" name="CEP" maxlength="8" placeholder="CEP" required>
+            <div class="invalid-feedback">
+                *Digite o CEP.
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom02">Logradouro</label>
+            <input type="text" asp-for="Logradouro" class="form-control" id="validationCustom02" name="Logradouro" maxlength="100" placeholder="Logradouro" required>
+            <div class="invalid-feedback">
+                *Digite o Logradouro.
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <label for="validationCustom02">Numero</label>
+            <input type="text" asp-for="Numero" class="form-control" id="validationCustom02" name="Numero" maxlength="6" placeholder="Numero">
+        </div>
+
+
+        <div class="col-md-3 mb-3">
+            <label for="validationCustom02">Complemento</label>
+            <input type="text" asp-for="Complemento" class="form-control" id="validationCustom02" name="Complemento" maxlength="20" placeholder="Complemento">
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="validationCustom02">Bairro</label>
+            <input type="text" asp-for="Bairro" class="form-control" id="validationCustom02" name="Bairro" maxlength="50" placeholder="Bairro" required>
+            <div class="invalid-feedback">
+                *Digite o Bairro.
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="validationCustom02">Localidade</label>
+            <input type="text" asp-for="Localidade" class="form-control" id="validationCustom02" name="Localidade" maxlength="50" placeholder="Localidade" required>
+            <div class="invalid-feedback">
+                *Digite a Localidade.
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <label for="validationCustom02">UF</label>
+            <input type="text" asp-for="UF" class="form-control" id="validationCustom02" name="UF" placeholder="UF" maxlength="2" required>
+            <div class="invalid-feedback">
+                *Digite o UF.
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <label for="validationCustom02">Marca</label>
+            <input type="text" asp-for="Caminhao.Marca" class="form-control" id="validationCustom02" placeholder="Marca" required>
+            <div class="invalid-feedback">
+                *Digite o UF.
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="validationCustom02">Modelo</label>
+            <input type="text" asp-for="Caminhao.Modelo" class="form-control" id="validationCustom02" placeholder="Modelo" required>
+            <div class="invalid-feedback">
+                *Digite o UF.
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="validationCustom02">Placa</label>
+            <input type="text" asp-for="Caminhao.Placa" class="form-control" id="validationCustom02" placeholder="Placa" required>
+            <div class="invalid-feedback">
+                *Digite o UF.
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="validationCustom02">Eixos</label>
+            <input type="text" asp-for="Caminhao.Eixos" class="form-control" id="validationCustom02" placeholder="Eixos" required>
+            <div class="invalid-feedback">
+                *Digite o UF.
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Enviar</button>
+</form>
+<div class="message" style="color:red;">
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function (e) {
+        var url = window.location.href;
+
+        if (url.substr(-1) == 0)
+            $('.message').html("<br />*Dados Gravados com sucesso.");
+        else if (url.substr(-1) == 1)
+            $('.message').html("<br />*Error ao gravar os dados.");
+        else
+            $('.message').html("");
+    });
+
+    // Exemplo de JavaScript inicial para desativar envios de formulário, se houver campos inválidos.
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Pega todos os formulários que nós queremos aplicar estilos de validação Bootstrap personalizados.
+            var forms = document.getElementsByClassName('needs-validation');
+            // Faz um loop neles e evita o envio
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        MensagemErro();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+
+    $("#cadastrarMotorista").submit(function () {
+        var jqxhr = $.post('CadastrarMotorista/', $('#cadastrarMotorista').serialize())
+            .success(function () {
+                var loc = jqxhr.getResponseHeader('Location');
+                var a = $('<a/>', { href: loc, text: loc });
+                $('.message').html(a);
+            })
+            .error(function () {
+                $('.message').html("Error posting the update.");
+            });
+        return false;
+    });
+
+
+
+    //window.onliad = function () {
+    //    //const urlParams = new URLSearchParams(window.location.search);
+    //    //const myParam = urlParams.get("Id");
+
+
+    //};
+</script>

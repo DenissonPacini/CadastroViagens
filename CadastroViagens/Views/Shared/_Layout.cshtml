@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CadastroViagens</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CadastroViagens</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" id="subMenuMotorista" href="#">Motorista</a>
+                                <div class="dropdown">
+                                    <!-- Link or button to toggle dropdown -->
+                                    <ul class="dropdown-menu" id="subManuMotorista" role="menu" aria-labelledby="dLabel" style="padding-left:20%; padding-right:2%;">
+                                        <li><a tabindex="-1" asp-area="" asp-controller="Motorista" asp-action="Motorista"> Cadastrar </a></li>
+                                        <li><a tabindex="-1" asp-area="" asp-controller="Motorista" asp-action="ListarMotorista">Listar Motorista</a></li>
+                                    </ul>
+                                </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" id="MenuViagem" href="#">Viagem</a>
+                            <div class="dropdown">
+                                <!-- Link or button to toggle dropdown -->
+                                <ul class="dropdown-menu" id="SubMenuViagem" role="menu" aria-labelledby="dLabel" style="padding-left:20%; padding-right:2%;">
+                                    <li><a tabindex="-1" asp-area="" asp-controller="Viagem" asp-action="CadastrarViagem"> Cadastrar </a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - CadastroViagens
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        $(function () {
+            $(".MensagemErro").hide();
+        });
+
+        function MensagemErro() {
+            $(".MensagemErro").show();
+        }
+
+        $("#subMenuMotorista").click(function () {
+            $("#SubMenuViagem").hide();
+            if ($("#subManuMotorista").is(":hidden"))
+                $("#subManuMotorista").show();
+            else
+                $("#subManuMotorista").hide();
+        });
+
+        $("#MenuViagem").click(function () {
+            $("#subManuMotorista").hide();
+            if ($("#SubMenuViagem").is(":hidden")) 
+                $("#SubMenuViagem").show();            
+            else
+                $("#SubMenuViagem").hide();
+        });
+
+        function AlteraMotorista(formulario) {
+            $("#" + formulario).submit(function (e) {
+                var form = $(this).serialize();
+                if (confirm("Tem certeza que deseja alterar o registro?")) {
+                    $.ajax({
+                        url: "/Motorista/AlterarMotorista",
+                        type: "post",
+                        data: form,
+                        success: (function (data) {
+                            alert("Dados alterados com sucesso.");
+                        })
+                    });
+                }
+            });
+        };
+        function ExcluirMotorista(formulario) {
+            $("#" + formulario).submit(function (e) {
+                var form = $(this).serialize();
+                if (confirm("Tem certeza que deseja excluir o registro?")) {
+                    $.ajax({
+                        url: "/Motorista/ExcluirMotorista",
+                        type: "post",
+                        data: form,
+                        success: (function (data) {
+                            alert("Dados excluidos sucesso.");
+                        })
+                    });
+                }
+            });
+        }
+        function formMotorista(Nome) {
+            $("#formMotorista").submit(function (e) {
+                var form = $(this).serialize();
+                if (confirm("Tem certeza que deseja excluir o registro?")) {
+                    $.ajax({
+                        url: "/Motorista/ExcluirMotorista",
+                        type: "post",
+                        data: form,
+                        success: (function (data) {
+                            alert("Dados excluidos sucesso.");
+                        })
+                    });
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $("#LocalizarViagem").click(function () {
+
+                $.ajax({
+                    url: "/Viagem/buscarMotorista",
+                    type: "GET",
+                    dataType: "json",
+                    data: { Nome: $("#Nome").val() },
+                    success: (function (data) {
+                        $(".modal-body").empty();
+                        $(".modal-body table").remove();                        
+
+                        $(data).each(function (i) {
+                            var string = data[i].Id + ', "' + data[i].Nome + '"';
+
+                            $(".modal-body").append(
+                                "<table class='table-bordered' style='width:100%;'><thead>" +
+                                "<tr>" +
+                                "<th scope='col' colspan='2' >Nome Motorista</th>" +
+                                "</tr>" +
+                                "</thead>" +
+
+                                "<tbody>" +
+                                "<tr>" +
+                                "<td style='width:60%'>" + data[i].Nome + "</td>" +
+                                "<td><a href='#' onclick='AlimentaForm(" + string + ")' class='btn btn-primary mb-2'> Selecionar</a>" +
+                                "</td>" +
+                                "</tr>" +
+                                "</tbody>" +
+                                "</table><br />"
+                            );
+                        });
+                        $('.modal').modal('show');
+                    }),
+                    error: (function (e) {
+                        alert("Deu erro.");
+                    })
+                });
+            })
+        });
+
+        function AlimentaForm(Id, Nome) {
+            $(".NomeMotorista").html(Nome);
+            $(".IdMotorista").val(Id);
+            $('.modal').modal('hide');
+        }
+
+        function checkForm(frm) {
+            if ($("#IdMotorista").val() == "") {
+                alert("Favor busque um motorista para cadastrar a viagem.");
+                return false;
+            }
+            else
+                return true;
+            }
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
