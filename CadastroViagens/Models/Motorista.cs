@@ -1,4 +1,6 @@
-﻿namespace CadastroViagens.Models
+﻿using System.Text.Json.Serialization;
+
+namespace CadastroViagens.Models
 {
     public class Motorista
     {
@@ -28,7 +30,9 @@
         public string Bairro { get; set; }
         public string Localidade { get; set; }
         public string UF { get; set; }
+        [JsonIgnore]
         public Caminhao Caminhao { get; set; }
+        [JsonIgnore]
         public Viagem Viagem { get; set; }
     }
 }

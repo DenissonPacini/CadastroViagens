@@ -1,4 +1,5 @@
 ﻿using CadastroViagens.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CadastroViagens.Data
 {
@@ -13,7 +14,8 @@ namespace CadastroViagens.Data
 
         public void InicializaDb()
         {
-            _appDbContext.Database.EnsureCreated();
+            //_appDbContext.Database.EnsureCreated();
+            _appDbContext.Database.Migrate();
         }
     }
 }

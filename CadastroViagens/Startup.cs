@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using Oracle.ManagedDataAccess.Client;
+using Newtonsoft.Json;
 
 namespace CadastroViagens
 {
@@ -26,9 +28,19 @@ namespace CadastroViagens
             services.AddControllersWithViews();
 
             //Essa variável pega minha string de conexão no arquiovo appsetting.json
-            string connectionString = Configuration.GetConnectionString("Default");
+            string connectionString = Configuration.GetConnectionString("Oracle");
 
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+            //services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<AppDbContext>(options => options.UseOracle(connectionString));
+
+            /* //teste de conexão com o Oracle*/
+            //using (OracleConnection connection = new OracleConnection(connectionString))
+            //{
+            //    connection.Open();
+            //    string teste = ("ServerVersion: " + connection.ServerVersion
+            //        + "\nDataSource: " + connection.DataSource + " Nome do banco" + connection.Database);
+            //}
+            services.AddDbContext<AppDbContext>();
 
             services.AddTransient<IDataService, DataService>();
             services.AddTransient<IRepositorioMotorista, RepositorioMotorista>();

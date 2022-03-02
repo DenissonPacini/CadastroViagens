@@ -50,6 +50,10 @@
               "target": "Package",
               "version": "[2.2.5, )"
             },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
             "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
               "target": "Package",
               "version": "[5.0.14, )"
@@ -69,6 +73,22 @@
             "Microsoft.Extensions.Configuration.Json": {
               "target": "Package",
               "version": "[6.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "Oracle.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.21.5, )"
+            },
+            "Oracle.ManagedDataAccess.Core": {
+              "target": "Package",
+              "version": "[3.21.50, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[6.0.2, )"
             }
           },
           "imports": [

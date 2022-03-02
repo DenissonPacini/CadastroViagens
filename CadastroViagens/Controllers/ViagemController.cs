@@ -1,14 +1,14 @@
 ﻿using CadastroViagens.Interfaces;
 using CadastroViagens.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
-using System;
 using System.Collections.Generic;
+using System.Text.Json;
 
 namespace CadastroViagens.Controllers
 {
     public class ViagemController : Controller
     {
+        private const char V = ',';
         private readonly IRepositorioViagem _repositorioViagem;
 
         public ViagemController(IRepositorioViagem repositorioViagem)
@@ -37,8 +37,7 @@ namespace CadastroViagens.Controllers
         [HttpGet]
         public string buscarMotorista(string Nome)
         {
-            string retorno = JsonSerializer.Serialize(_repositorioViagem.BuscaMotorista(Nome));
-            return retorno;
+            return JsonSerializer.Serialize(_repositorioViagem.BuscaMotorista(Nome));
         }
     }
 }

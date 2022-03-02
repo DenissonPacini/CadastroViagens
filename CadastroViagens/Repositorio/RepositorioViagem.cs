@@ -41,19 +41,13 @@ namespace CadastroViagens.Repositorio
 
         public List<Motorista> BuscaMotorista(string Nome)
         {
-            List<Motorista> ListarMotorista = new List<Motorista>();
-
-            var idMotorista = _contexto.Motorista
-                .Where(P => EF.Functions.Like(P.Nome, "%" + Nome + "%"))
-                .Select(p => new { p.Id, p.Nome })
+            List<Motorista> ListarMotorista = _contexto.Motorista
+                .Include(x => x.Viagem)
+                .Where(p => EF.Functions.Like(p.Nome, "%" + Nome + "%"))
+                .AsNoTracking()
                 .ToList();
 
-            foreach (var item in idMotorista)
-            {
-                ListarMotorista.Add(new Motorista { Id = item.Id, Nome = item.Nome });
-            }
-
-            return ListarMotorista;// _motorista.PegaMotorista(Nome);
+            return ListarMotorista;
         }
     }
 }
